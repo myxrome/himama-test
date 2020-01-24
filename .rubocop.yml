@@ -11,7 +11,6 @@ Layout/LineLength:
 AllCops:
   Exclude:
     - 'db/**/*'
-    - 'config/**/*'
     - 'script/**/*'
     - 'bin/*'
     - 'node_modules/**/*'
