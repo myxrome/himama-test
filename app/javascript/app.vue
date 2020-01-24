@@ -46,7 +46,6 @@
   import axios from 'axios';
   import { DateTime } from 'luxon';
   import { Datetime } from 'vue-datetime';
-  import 'vue-datetime/dist/vue-datetime.css'
 
 export default {
   components: {
