@@ -360,3 +360,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+### Project
+.docker/
+/config/credentials/development.key
+/config/credentials/test.key
