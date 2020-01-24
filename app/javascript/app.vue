@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center" v-if="current_clock_log">
-      <h3>You are clocked in at {{ current_clock_log.clocked_in_at }}</h3>
+      <h3>You are clocked in at {{ dateTimeToString(current_clock_log.clocked_in_at) }}</h3>
       <button type="button" class="button radius bordered shadow primary" v-on:click="clockOut">Clock Out</button>
     </div>
     <div class="text-center" v-else>
@@ -24,15 +24,15 @@
       <tr class="text-center" v-for="(clock_log, index) in completed_clock_logs">
         <template v-if="clock_log === editable_clock_log">
           <td>{{ index + 1 }}</td>
-          <td><input v-model="clock_log.clocked_in_at"></td>
-          <td><input v-model="clock_log.clocked_out_at"></td>
+          <td><datetime type="datetime" v-model="clock_log.clocked_in_at"></datetime></td>
+          <td><datetime type="datetime" v-model="clock_log.clocked_out_at"></datetime></td>
           <td><button type="button" class="button radius bordered shadow primary" v-on:click="save(clock_log)">Save</button></td>
           <td><button type="button" class="button radius bordered shadow primary" v-on:click="cancelEdit">Cancel</button></td>
         </template>
         <template v-else>
           <td>{{ index + 1 }}</td>
-          <td>{{ clock_log.clocked_in_at }}</td>
-          <td>{{ clock_log.clocked_out_at }}</td>
+          <td>{{ dateTimeToString(clock_log.clocked_in_at) }}</td>
+          <td>{{ dateTimeToString(clock_log.clocked_out_at) }}</td>
           <td><button type="button" class="button radius bordered shadow primary" v-on:click="editClockLog(clock_log)">Edit</button></td>
           <td ><button type="button" class="button radius bordered shadow primary" v-on:click="destroy(clock_log)">Delete</button></td>
         </template>
@@ -44,8 +44,14 @@
 
 <script>
   import axios from 'axios';
+  import { DateTime } from 'luxon';
+  import { Datetime } from 'vue-datetime';
+  import 'vue-datetime/dist/vue-datetime.css'
 
 export default {
+  components: {
+    datetime: Datetime
+  },
   data: function () {
     return {
       clock_logs: [],
@@ -123,6 +129,9 @@ export default {
       }).catch((response) => {
         console.log(response)
       })
+    },
+    dateTimeToString: function(datetime) {
+      return DateTime.fromISO(datetime).toLocaleString(DateTime.DATETIME_MED)
     },
     token: function () {
       return document.querySelector("[name='csrf-token']").getAttribute("content");

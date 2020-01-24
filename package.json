@@ -8,10 +8,13 @@
     "@rails/webpacker": "4.2.2",
     "axios": "^0.19.2",
     "jquery": "^3.4.1",
+    "luxon": "^1.21.3",
     "turbolinks": "^5.2.0",
     "vue": "^2.6.11",
+    "vue-datetime": "^1.0.0-beta.11",
     "vue-loader": "^15.8.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "weekstart": "^1.0.1"
   },
   "version": "0.1.0",
   "devDependencies": {
