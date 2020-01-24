@@ -35,6 +35,15 @@ RSpec.describe ClockLog, type: :model do
       it { is_expected.not_to be_valid }
     end
 
+    context 'with no overlapping' do
+      let(:clock_log) { create(:clock_log, clocked_in_at: 20.minutes.before, clocked_out_at: 10.minutes.before) }
+
+      it 'not overlap with self' do
+        clock_log.clocked_out_at = 15.minutes.before
+        expect(clock_log).to be_valid
+      end
+    end
+
     context 'with overlapping of other clock log events for same user' do
       subject { build(:clock_log, user: user, clocked_in_at: 35.minutes.before, clocked_out_at: 15.minutes.before) }
 

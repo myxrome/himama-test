@@ -21,11 +21,11 @@ class ClockLog < ApplicationRecord
       'user_id = :user_id AND :clocked_in_at BETWEEN clocked_in_at AND clocked_out_at',
       user_id: user_id,
       clocked_in_at: clocked_in_at
-    ).any?
+    ).where.not(id: id).any?
     errors.add(:clocked_out_at, 'Clocked Out event overlapped with another Clock Log!') if ClockLog.where(
       'user_id = :user_id AND :clocked_out_at BETWEEN clocked_in_at AND clocked_out_at',
       user_id: user_id,
       clocked_out_at: clocked_out_at
-    ).any?
+    ).where.not(id: id).any?
   end
 end
