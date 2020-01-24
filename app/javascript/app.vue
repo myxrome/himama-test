@@ -96,12 +96,14 @@ export default {
       })
     },
     destroy: function(log) {
-      axios.delete('/clock_logs/' + log.id + '.json', { headers: { 'x-csrf-token': this.token() } }).
-      then((response) => {
-        this.refresh()
-      }).catch((response) => {
-        console.log(response)
-      })
+      if (confirm('Are you sure to delete the record?')) {
+        axios.delete('/clock_logs/' + log.id + '.json', { headers: { 'x-csrf-token': this.token() } }).
+        then((response) => {
+          this.refresh()
+        }).catch((response) => {
+          console.log(response)
+        })
+      }
     },
     editClockLog: function(log) {
       this.editable_clock_log = log;
