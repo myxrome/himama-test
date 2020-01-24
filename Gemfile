@@ -38,7 +38,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '4.0.0.beta4'
   gem 'shoulda-matchers'
 
   gem 'brakeman', require: false
