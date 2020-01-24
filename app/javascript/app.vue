@@ -24,8 +24,8 @@
       <tr class="text-center" v-for="(clock_log, index) in completed_clock_logs">
         <template v-if="clock_log === editable_clock_log">
           <td>{{ index + 1 }}</td>
-          <td><datetime type="datetime" v-model="clock_log.clocked_in_at"></datetime></td>
-          <td><datetime type="datetime" v-model="clock_log.clocked_out_at"></datetime></td>
+          <td><datetime type="datetime" :min-datetime="minDateTime(index)" :max-datetime="clock_log.clocked_out_at" v-model="clock_log.clocked_in_at"></datetime></td>
+          <td><datetime type="datetime" :min-datetime="clock_log.clocked_in_at" :max-datetime="maxDateTime(index)" v-model="clock_log.clocked_out_at"></datetime></td>
           <td><button type="button" class="button radius bordered shadow primary" v-on:click="save(clock_log)">Save</button></td>
           <td><button type="button" class="button radius bordered shadow primary" v-on:click="cancelEdit">Cancel</button></td>
         </template>
@@ -129,6 +129,18 @@ export default {
       }).catch((response) => {
         console.log(response)
       })
+    },
+    minDateTime: function(index) {
+      if (this.clock_logs[index - 1] === undefined) {
+        return null
+      }
+      return this.clock_logs[index - 1].clocked_out_at
+    },
+    maxDateTime: function(index) {
+      if (this.clock_logs[index + 1] === undefined) {
+        return new Date().toISOString()
+      }
+      return this.clock_logs[index + 1].clocked_in_at
     },
     dateTimeToString: function(datetime) {
       return DateTime.fromISO(datetime).toLocaleString(DateTime.DATETIME_MED)
