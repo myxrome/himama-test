@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>HimamaTest</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "HiMama Test" %></title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,14 +14,15 @@
   </head>
 
   <body>
-    <ul class="hmenu">
-      <%= render 'devise/menu/registration_items' %>
-      <%= render 'devise/menu/login_items' %>
-    </ul>
+    <div class="grid-x">
+      <div class="cell small-2"></div>
+      <div class="cell small-8">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <%= yield %>
+        <%= yield %>
+      </div>
+      <div class="cell small-2"></div>
+    </div>
   </body>
 </html>
