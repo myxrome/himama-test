@@ -1,3 +1,13 @@
+<div class="grid-x align-middle">
+  <div class="cell small-2"></div>
+  <div class="cell small-8">
+    <h2 class="text-center">Welcome, <%= current_user.email %></h2>
+  </div>
+  <div class="cell small-2">
+    <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "button radius bordered shadow primary float-right") %>
+  </div>
+</div>
+<hr>
 <%= javascript_pack_tag 'clock_log_app' %>
 <div id='app'>
   <app></app>
